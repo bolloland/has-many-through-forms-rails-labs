@@ -1,5 +1,5 @@
-<h1>Categories</h1>
+<h1>Categories Show Page</h1>
 
 <% @category.posts.each do |c| %>
-<%= link_to c.title, post_path(c) %>
+  <%= link_to c.title, post_path(c) %>
 <% end %>
