@@ -1,1 +1,36 @@
 
+<h1>Posts</h1>
+
+Title: <%= @post.title %><br>
+
+Content: "<%= @post.content %>"<br>
+
+
+Categories:<br>
+<ul><% @post.categories.each do |c| %>
+    <li><%= c.name %></li></ul>
+    <% end %><br>
+
+
+Comments: <br>
+<ul><% @post.comments.each do |comm| %>
+    <li>"<%= comm.content %>" - <%= link_to comm.user.username, user_path(comm) %></li></ul>
+    <% end %>
+
+
+          Make A Comment:
+    <%= form_for @post.comments.build do |f| %>
+    <p>
+    <%= f.label "New Comment" %><br>
+    <%= f.text_area :content %></p>
+
+        <%= f.collection_select :user_id, User.all, :id, :username, prompt: true %>
+        <br>
+        <%= f.fields_for :user, @user do |user_fields| %>
+
+        <%= user_fields.label "New User" %><br/>
+        <%= user_fields.text_field :username %>
+        <% end %><p>
+
+    <%= f.submit %>
+<% end %> 
