@@ -4,20 +4,15 @@ class Post < ActiveRecord::Base
   has_many :comments
   has_many :users, through: :comments
   accepts_nested_attributes_for :categories
-  accepts_nested_attributes_for :users
+ 
   
-  def categories_attributes=(category_attributes)
-    category_attributes.values.each do |c|
-      category = Category.find_or_create_by(c)
-      self.categories << category
+  def categories_attributes=(categories_attributes)
+    categories_attributes.values.each do |category|
+      if !category[:name].empty?
+        self.categories << Category.find_or_create_by(category)
+      end
     end
   end
 
-  def users_attributes=(users_attributes)
-    users_attributes.values.each do |c|
-      user = User.find_or_create_by(c)
-      self.users << user
-    end
-  end
 
 end

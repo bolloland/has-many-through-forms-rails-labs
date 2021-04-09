@@ -11,6 +11,7 @@
     Pick a Category or Create a New One:<br>
         <%= f.collection_check_boxes :category_ids, Category.all, :id, :name %>
         <br>
+        Create a New One:
         <%= f.fields_for :categories, post.categories.build do |categories_fields| %>
 
         <%= categories_fields.label "New Category" %><br/>
